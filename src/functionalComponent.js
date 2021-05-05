@@ -18,7 +18,17 @@ export default function AddProduct() {
     setProducts([...products, newProduct]);
   };
 
-  console.log(products);
+  const increaseQuantity = (event) => {
+    const indexOfArray = event.target.value;
+    products[indexOfArray].product_quantity++;
+    setProducts([...products]);
+  }
+
+  const decreaseQuantity = (event) => {
+    const indexOfArray = event.target.value;
+    products[indexOfArray].product_quantity--;
+    setProducts([...products]);
+  }
 
   return (
     <>
@@ -80,13 +90,19 @@ export default function AddProduct() {
               {
                 products.map((item, index) => {
                     return(
-                        <tr key={++index}>
-                            <td>{++index}</td>
+                        <tr key={index}>
+                            <td>{index}</td>
                             <td>{item.product_name}</td>
                             <td>{item.product_description}</td>
                             <td>{item.product_price}</td>
                             <td>{item.product_quantity}</td>
-                            <td></td>
+                            <td>
+                                <Button variant="success" onClick={event=> increaseQuantity(event)} value={index}>
++
+                                </Button> { ' '}
+                                <Button variant="danger" onClick={event => decreaseQuantity(event)} value={index}>
+                                    -</Button>
+                            </td>
                         </tr>
                         )
                     })
