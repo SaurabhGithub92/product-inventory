@@ -22,11 +22,17 @@ export default function AddProduct() {
     const indexOfArray = event.target.value;
     products[indexOfArray].product_quantity++;
     setProducts([...products]);
-  }
+  };
 
   const decreaseQuantity = (event) => {
     const indexOfArray = event.target.value;
     products[indexOfArray].product_quantity--;
+    setProducts([...products]);
+  };
+
+  const deleteProduct = (event) => {
+    const indexOfArray = event.target.value;
+    products.splice(indexOfArray, 1);
     setProducts([...products]);
   }
 
@@ -73,7 +79,7 @@ export default function AddProduct() {
           Add to Inventory
         </Button>
       </Form>
-    <br />
+      <br />
       {products.length > 0 && (
         <Table striped bordered hover variant="dark">
           <thead>
@@ -87,27 +93,42 @@ export default function AddProduct() {
             </tr>
           </thead>
           <tbody>
-              {
-                products.map((item, index) => {
-                    return(
-                        <tr key={index}>
-                            <td>{index}</td>
-                            <td>{item.product_name}</td>
-                            <td>{item.product_description}</td>
-                            <td>{item.product_price}</td>
-                            <td>{item.product_quantity}</td>
-                            <td>
-                                <Button variant="success" onClick={event=> increaseQuantity(event)} value={index}>
-+
-                                </Button> { ' '}
-                                <Button variant="danger" onClick={event => decreaseQuantity(event)} value={index}>
-                                    -</Button>
-                            </td>
-                        </tr>
-                        )
-                    })
-                }   
-            
+            {products.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index}</td>
+                  <td>{item.product_name}</td>
+                  <td>{item.product_description}</td>
+                  <td>{item.product_price}</td>
+                  <td>
+                    {item.product_quantity}{" "}
+                    <Button
+                      variant="success"
+                      onClick={(event) => increaseQuantity(event)}
+                      value={index}
+                    >
+                      +
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      onClick={(event) => decreaseQuantity(event)}
+                      value={index}
+                    >
+                      -
+                    </Button>
+                  </td>
+                  <td>
+                  <Button
+                      variant="danger"
+                      onClick={(event) => deleteProduct(event)}
+                      value={index}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       )}
