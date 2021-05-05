@@ -99,7 +99,7 @@ export default function AddProduct() {
                   <td>{index}</td>
                   <td>{item.product_name}</td>
                   <td>{item.product_description}</td>
-                  <td>{item.product_price}</td>
+                  <td>{item.product_price.toFixed(2)}</td>
                   <td>
                     {item.product_quantity}{" "}
                     <Button
